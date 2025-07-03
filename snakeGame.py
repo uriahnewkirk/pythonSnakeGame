@@ -83,6 +83,11 @@ def move():
         food.x = random.randint(0, columns-1) * tile_size
         food.y = random.randint(0, rows-1) * tile_size
         score += 1
+
+    #If the player moves outside the game's play area, they will Game Over
+    if (snake.x < 0) or (snake.x > window_width) or (snake.y < 0) or (snake.y > window_height):
+        gameOver = True
+        return
     
     #update the snake body location on the game board
     for w in range(len(snakeBody)-1, -1, -1):
