@@ -1,6 +1,5 @@
 import tkinter
 import random
-import math
 
 rows = 25
 columns = 25
@@ -109,7 +108,6 @@ def move():
 def draw():
     global snake, food, snakeBody, gameOver, score
     move()
-
     canvas.delete("all")
 
     #generate food
@@ -119,12 +117,29 @@ def draw():
     for tile in snakeBody:
         canvas.create_rectangle(tile.x, tile.y, tile.x + tile_size, tile.y + tile_size, fill="lime green")
 
+    #what to display upon 'Game Over'
     if (gameOver):
-        canvas.create_text(window_width/2, window_height/2, font="Arial 20", text= f"Game Over: {score}", fill="white")
+        canvas.create_text(window_width/2, window_height/2, font="Arial 20", text= f"Game Over: {score} \n \nPress Space to play again", fill="white")
+        window.bind('<space>', resetGame)
     else:
         canvas.create_text(30, 20, font="Arial 10", text= f"Score: {score}", fill="white")
     
     window.after(100, draw)
+
+def resetGame(e):
+    global snake, food, snakeBody, gameOver, score, velocityX, velocityY
+    #reset game board
+    canvas = tkinter.Canvas(window, background="black", width=window_width, height=window_height, borderwidth=0, highlightthickness=0)
+    canvas.pack()
+    canvas.update()
+    snake = Tile(tile_size * 5, tile_size * 5)
+    food = Tile(tile_size * 10, tile_size * 10)
+    velocityX = 0;
+    velocityY = 0;
+    snakeBody = [];
+    gameOver = False;
+    score = 0;
+    window.mainloop()
 
 draw()
 window.bind("<KeyRelease>", changeDirection)
