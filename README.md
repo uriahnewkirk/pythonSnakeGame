@@ -6,6 +6,4 @@ basic Snake computer game written in Python for practice
 
 
 TODO:
-- Add collision to border of game board
 - Attempt to reset game after Game Over?
-- Adjust default snake velocity
